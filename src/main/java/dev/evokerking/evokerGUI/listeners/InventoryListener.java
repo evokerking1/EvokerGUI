@@ -7,20 +7,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-public class inventory implements Listener {
+public final class InventoryListener implements Listener {
     @EventHandler
-    public void onClick(InventoryClickEvent e) {
-        final Inventory clicked = e.getClickedInventory();
+    public void onClick(InventoryClickEvent event) {
+        final Inventory clicked = event.getClickedInventory();
 
-        if(clicked == null) return;
-
-        if(!(clicked.getHolder() instanceof final Menu menu)) {
-            //Checks if the inventory is a menu we made if not then we just return
+        if (clicked == null) {
             return;
         }
 
-        //Else if it is one of our menu's then we just cancel the event
-        e.setCancelled(true);
-        menu.click((Player) e.getWhoClicked(), e.getSlot());
+        if (!(clicked.getHolder() instanceof final Menu menu)) {
+            return;
+        }
+
+        event.setCancelled(true);
+        menu.click((Player) event.getWhoClicked(), event.getSlot());
     }
 }

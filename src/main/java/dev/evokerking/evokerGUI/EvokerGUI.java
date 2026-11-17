@@ -1,16 +1,39 @@
 package dev.evokerking.evokerGUI;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import dev.evokerking.evokerGUI.listeners.InventoryListener;
+import org.bukkit.plugin.Plugin;
 
-public final class EvokerGUI extends JavaPlugin {
+public final class EvokerGUI {
+    private static boolean initialized = false;
 
-    @Override
-    public void onEnable() {
-        // Plugin startup logic
+    private EvokerGUI() {
+        throw new UnsupportedOperationException("EvokerGUI is a utility class and cannot be instantiated.");
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    /**
+     * Initializes EvokerGUI and registers its listeners.
+     *
+     * Call this once from your plugin's onEnable method:
+     *
+     * EvokerGUI.init(this);
+     *
+     * @param plugin the plugin using EvokerGUI
+     */
+    public static void init(Plugin plugin) {
+        if (initialized) {
+            return;
+        }
+
+        plugin.getServer().getPluginManager().registerEvents(new InventoryListener(), plugin);
+        initialized = true;
+    }
+
+    /**
+     * Returns whether EvokerGUI has already been initialized.
+     *
+     * @return true if initialized, otherwise false
+     */
+    public static boolean isInitialized() {
+        return initialized;
     }
 }

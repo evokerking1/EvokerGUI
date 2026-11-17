@@ -1,11 +1,13 @@
 plugins {
     id("java-library")
-    id("xyz.jpenilla.run-paper") version "3.1.0"
+    id("maven-publish")
 }
+
 
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://repo.evokerking.dev/repository/maven-public/")
 }
 
 dependencies {
@@ -14,17 +16,58 @@ dependencies {
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(21)
+    
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            groupId = project.group.toString()
+            artifactId = "evokergui"
+            version = project.version.toString()
+
+            pom {
+                name.set("EvokerGUI")
+                description.set(project.description)
+                url.set("https://evokerengine.evokerkng.dev")
+
+                developers {
+                    developer {
+                        id.set("Evokerking")
+                        name.set("Evokerking")
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "EvokerKing"
+
+            url = uri(
+                if (project.version.toString().endsWith("-SNAPSHOT")) {
+                    "https://repo.evokerking.dev/repository/maven-snapshots/"
+                } else {
+                    "https://repo.evokerking.dev/repository/maven-releases/"
+                }
+            )
+
+            credentials {
+                username = findProperty("evokerRepoUsername") as String?
+                    ?: System.getenv("EVOKER_REPO_USERNAME")
+                password = findProperty("evokerRepoPassword") as String?
+                    ?: System.getenv("EVOKER_REPO_PASSWORD")
+            }
+        }
+    }
 }
 
 tasks {
-    runServer {
-        // Configure the Minecraft version for our task.
-        // This is the only required configuration besides applying the plugin.
-        // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.21.11")
-        jvmArgs("-Xms2G", "-Xmx2G", "-Dcom.mojang.eula.agree=true")
-    }
-
     processResources {
         val props = mapOf("version" to version, "description" to project.description)
         filesMatching("paper-plugin.yml") {
