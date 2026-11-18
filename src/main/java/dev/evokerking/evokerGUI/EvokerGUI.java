@@ -23,8 +23,9 @@ public final class EvokerGUI {
      * EvokerGUI.init(this);
      *
      * @param plugin the plugin using EvokerGUI
+     * @param tryBedrockSupport whether to try to enable bedrock support
      */
-    public static void init(Plugin plugin) {
+    public static void init(Plugin plugin, Boolean tryBedrockSupport) {
         plugin.getLogger().log(Level.INFO, "[EvokerGUI] Initializing EvokerGUI");
         if (initialized) {
             plugin.getLogger().log(Level.WARNING, "[EvokerGUI] Detected a double init for EvokerGUI");
@@ -34,18 +35,19 @@ public final class EvokerGUI {
         plugin.getServer().getPluginManager().registerEvents(new InventoryListener(), plugin);
         initialized = true;
 
-        plugin.getLogger().log(Level.INFO, "[EvokerGUI] EvokerGUI Initialized, now trying to enable bedrock support");
+        if (tryBedrockSupport == true) {
+            plugin.getLogger().log(Level.INFO, "[EvokerGUI] EvokerGUI Initialized, now trying to enable bedrock support");
 
-
-        if(plugin.getServer().getPluginManager().isPluginEnabled("Geyser-Spigot")) {
-            bedrockSupport = true;
-            plugin.getLogger().log(Level.INFO, "[EvokerGUI] Bedrock support initialized successfully");
-        } else  {
-            bedrockSupport = false;
-            plugin.getLogger().log(Level.WARNING, "[EvokerGUI] Bedrock support failed to initialize, this is not crucial UNLESS you want to add bedrock support, then please check that Geyser is installed");
+            if (plugin.getServer().getPluginManager().isPluginEnabled("Geyser-Spigot")) {
+                bedrockSupport = true;
+                plugin.getLogger().log(Level.INFO, "[EvokerGUI] Bedrock support initialized successfully");
+            } else  {
+                bedrockSupport = false;
+                plugin.getLogger().log(Level.WARNING, "[EvokerGUI] Bedrock support failed to initialize, this is not crucial UNLESS you want to add bedrock support, then please check that Geyser is installed");
+            }
+        } else {
+            plugin.getLogger().log(Level.INFO, "[EvokerGUI] EvokerGUI Initialized, bedrock support is disabled");
         }
-
-
     }
 
 
