@@ -10,6 +10,6 @@ public class DialogFormProvider implements FormProvider {
 
     @Override
     public String getFormType() {
-        return "";
+        return "dialog";
     }
 }

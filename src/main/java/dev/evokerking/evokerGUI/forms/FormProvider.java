@@ -4,6 +4,4 @@ public interface FormProvider {
     String getFormId();
 
     String getFormType();
-
-    String formId = "default";
 }
