@@ -8,7 +8,7 @@ import java.util.logging.Level;
 @SuppressWarnings("unused")
 public final class EvokerGUI {
     private static boolean initialized = false;
-    private static boolean bedrockSupport = false;
+    public static boolean bedrockSupport = false;
 
     private EvokerGUI() {
         throw new UnsupportedOperationException("EvokerGUI is a utility class and cannot be instantiated.");
