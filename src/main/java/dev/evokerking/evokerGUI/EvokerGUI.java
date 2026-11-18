@@ -1,11 +1,11 @@
 package dev.evokerking.evokerGUI;
 
 import dev.evokerking.evokerGUI.listeners.InventoryListener;
-import org.bukkit.inventory.MenuType;
 import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Level;
 
+@SuppressWarnings("unused")
 public final class EvokerGUI {
     private static boolean initialized = false;
     private static boolean bedrockSupport = false;
