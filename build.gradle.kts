@@ -68,10 +68,5 @@ publishing {
 }
 
 tasks {
-    processResources {
-        val props = mapOf("version" to version, "description" to project.description)
-        filesMatching("paper-plugin.yml") {
-            expand(props)
-        }
-    }
+
 }
