@@ -1,6 +1,7 @@
 package dev.evokerking.evokerGUI;
 
 import dev.evokerking.evokerGUI.listeners.InventoryListener;
+import org.bukkit.inventory.MenuType;
 import org.bukkit.plugin.Plugin;
 
 import java.util.logging.Level;
@@ -12,6 +13,7 @@ public final class EvokerGUI {
     private EvokerGUI() {
         throw new UnsupportedOperationException("EvokerGUI is a utility class and cannot be instantiated.");
     }
+
 
     /**
      * Initializes EvokerGUI and registers its listeners.
@@ -25,7 +27,9 @@ public final class EvokerGUI {
      * @param plugin the plugin using EvokerGUI
      * @param tryBedrockSupport whether to try to enable bedrock support
      */
-    public static void init(Plugin plugin, Boolean tryBedrockSupport) {
+    @SuppressWarnings("unused")
+
+    public static void init(Plugin plugin, Boolean tryBedrockSupport ) {
         plugin.getLogger().log(Level.INFO, "[EvokerGUI] Initializing EvokerGUI");
         if (initialized) {
             plugin.getLogger().log(Level.WARNING, "[EvokerGUI] Detected a double init for EvokerGUI");
@@ -49,7 +53,6 @@ public final class EvokerGUI {
             plugin.getLogger().log(Level.INFO, "[EvokerGUI] EvokerGUI Initialized, bedrock support is disabled");
         }
     }
-
 
     /**
      * Returns whether EvokerGUI has already been initialized.
