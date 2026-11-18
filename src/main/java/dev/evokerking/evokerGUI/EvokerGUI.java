@@ -15,11 +15,11 @@ public final class EvokerGUI {
 
     /**
      * Initializes EvokerGUI and registers its listeners.
-     *
+     * <p>
      * This method will also attempt to see if Geyser-Spigot is setup on the server for enhanced bedrock support
-     *
+     * <p>
      * Call this once from your plugin's onEnable method:
-     *
+     * <p>
      * EvokerGUI.init(this);
      *
      * @param plugin the plugin using EvokerGUI
