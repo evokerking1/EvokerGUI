@@ -1,5 +1,7 @@
 package dev.evokerking.evokerGUI.menu;
 
+import dev.evokerking.evokerGUI.menu.components.FooterComponent;
+import dev.evokerking.evokerGUI.menu.components.HeaderComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -13,8 +15,11 @@ import java.util.function.Consumer;
 public class SimpleMenu implements Menu {
     private final Map<Integer, Consumer<Player>> actions = new HashMap<>();
     private final Inventory inventory;
+    /**
+     * Creates a new SimpleMenu with the specified title and rows, and .
+     * @param title The title of the menu**/
 
-    public SimpleMenu(String title, Rows rows) {
+    public SimpleMenu(String title, Rows rows, FooterComponent footerProvider, HeaderComponent headerProvider) {
         this.inventory = Bukkit.createInventory(this, rows.getSize(), title);
     }
     @Override
